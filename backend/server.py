@@ -27,7 +27,7 @@ app = FastAPI()
 api_router = APIRouter(prefix="/api")
 
 pwd_context = CryptContext(
-    schemes=["argon2", "bcrypt"],
+    schemes=["bcrypt"],
     deprecated="auto"
 )
 
