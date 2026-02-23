@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
@@ -150,25 +150,31 @@ const Dashboard = () => {
   const { token, user }       = useAuthStore();
   const navigate              = useNavigate();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    if (!token) { navigate('/login'); return; }
-    fetchOrders();
-  }, [token, navigate]);
 
-  const fetchOrders = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(`${API}/orders/my-orders`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setOrders(response.data);
-    } catch (error) {
-      console.error('Error fetching orders:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const fetchOrders = useCallback(async () => {
+  if (!token) return;
+
+  setLoading(true);
+  try {
+    const response = await axios.get(`${API}/orders/my-orders`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setOrders(response.data);
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+  } finally {
+    setLoading(false);
+  }
+}, [token]);
+
+  useEffect(() => {
+  if (!token) {
+    navigate('/login');
+    return;
+  }
+  fetchOrders();
+}, [token, navigate, fetchOrders]);
+  
 
   /* ─── Status helpers (kept for original table on desktop) ─── */
   const getStatusIcon = (status) => {
