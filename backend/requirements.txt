@@ -122,3 +122,6 @@ watchfiles
 websockets
 yarl
 zipp
+argon2-cffi
+bcrypt
+passlib
