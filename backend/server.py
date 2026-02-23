@@ -26,7 +26,11 @@ db = client[os.environ['DB_NAME']]
 app = FastAPI()
 api_router = APIRouter(prefix="/api")
 
-pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
+pwd_context = CryptContext(
+    schemes=["argon2", "bcrypt"],
+    deprecated="auto"
+)
+
 security = HTTPBearer()
 
 JWT_SECRET = os.environ.get('JWT_SECRET')
