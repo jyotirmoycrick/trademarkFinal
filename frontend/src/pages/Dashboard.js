@@ -150,6 +150,7 @@ const Dashboard = () => {
   const { token, user }       = useAuthStore();
   const navigate              = useNavigate();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!token) { navigate('/login'); return; }
     fetchOrders();
