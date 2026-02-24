@@ -227,7 +227,7 @@ SERVICES_DATA = [
         "id": "trademark-registration",
         "name": "Trademark Registration",
         "description": "Protect your brand identity with official trademark registration",
-        "price": 1299,
+        "price": 1,
         "features": [
             "Comprehensive trademark search",
             "Application preparation & filing",
