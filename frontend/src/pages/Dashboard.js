@@ -53,7 +53,15 @@ const getStatus = (status) => STATUS_CONFIG[status] || STATUS_CONFIG.pending;
 /* ─── Mobile Order Card (accordion) ─── */
 const OrderCard = ({ order, index }) => {
   const [open, setOpen] = useState(false);
-  const cfg = getStatus(order.status);
+  const paymentStatus = order.payment_status;
+
+let displayStatus = order.status;
+
+if (paymentStatus !== "captured") {
+  displayStatus = "failed";
+}
+
+const cfg = getStatus(displayStatus);
   const Icon = cfg.icon;
 
   return (
@@ -159,7 +167,13 @@ const Dashboard = () => {
     const response = await axios.get(`${API}/orders/my-orders`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    setOrders(response.data);
+    const paidOrders = response.data.filter(
+  o => o.payment_status === "captured"
+);
+
+setOrders(paidOrders);
+
+    
   } catch (error) {
     console.error('Error fetching orders:', error);
   } finally {
@@ -189,7 +203,9 @@ const Dashboard = () => {
   };
 
   const totalOrders      = orders.length;
-  const activeServices   = orders.filter(o => o.status === 'processing').length;
+  const activeServices = orders.filter(
+  o => o.payment_status === "captured" && o.status === "processing"
+).length;
   const completedCount   = orders.filter(o => o.status === 'completed').length;
 
   const statCards = [
