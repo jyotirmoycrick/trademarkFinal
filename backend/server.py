@@ -523,6 +523,15 @@ async def get_my_orders(current_user: User = Depends(get_current_user)):
     return orders
 
 
+@api_router.get("/db-check")
+async def db_check():
+    try:
+        await db.command("ping")
+        return {"status": "db connected"}
+    except Exception as e:
+        return {"error": str(e)}
+
+
 @api_router.get("/orders/{order_id}")
 async def get_order(order_id: str, current_user: User = Depends(get_current_user)):
     order = await db.orders.find_one({"id": order_id, "user_id": current_user.id}, {"_id": 0})
