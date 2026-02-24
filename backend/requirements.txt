@@ -5,7 +5,6 @@ annotated-doc
 annotated-types
 anyio
 attrs
-bcrypt
 black
 boto3
 botocore
@@ -122,6 +121,5 @@ watchfiles
 websockets
 yarl
 zipp
-argon2-cffi
-bcrypt
-passlib
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
