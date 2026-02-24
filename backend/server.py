@@ -117,7 +117,6 @@ class RazorpayOrderResponse(BaseModel):
     amount: int
     currency: str
     key_id: str
-    internal_order_id: str
 
 
 class VerifyPaymentRequest(BaseModel):
@@ -477,8 +476,7 @@ async def create_order(order_data: CreateOrderRequest, current_user: User = Depe
         razorpay_order_id=razorpay_order['id'],
         amount=final_amount,
         currency="INR",
-        key_id=RAZORPAY_KEY_ID,
-        internal_order_id=order.id
+        key_id=RAZORPAY_KEY_ID
     )
 
 
@@ -494,7 +492,7 @@ async def verify_payment(payment_data: VerifyPaymentRequest, current_user: User 
         razorpay_client.utility.verify_payment_signature(params_dict)
         
         await db.orders.update_one(
-            {"id": payment_data.order_id},
+            {"razorpay_order_id": payment_data.razorpay_order_id},
             {
                 "$set": {
                     "razorpay_payment_id": payment_data.razorpay_payment_id,
