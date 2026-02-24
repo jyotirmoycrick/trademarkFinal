@@ -135,7 +135,7 @@ const Checkout = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      const { razorpay_order_id, amount, key_id } = orderResponse.data;
+      const { razorpay_order_id, amount, key_id, internal_order_id } = orderResponse.data;
       trackStep('payment_initiated', { razorpay_order_id });
 
       const options = {
@@ -144,7 +144,7 @@ const Checkout = () => {
         currency: 'INR',
         name: 'WebDesert Legal Services',
         description: 'Legal Service Payment',
-        order_id: razorpay_order_id,
+        order_id: internal_order_id,
         handler: async (response) => {
           try {
             await axios.post(
@@ -153,7 +153,7 @@ const Checkout = () => {
                 razorpay_order_id:  response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature:  response.razorpay_signature,
-                order_id: razorpay_order_id,
+                order_id: internal_order_id,
               },
               { headers: { Authorization: `Bearer ${token}` } }
             );
