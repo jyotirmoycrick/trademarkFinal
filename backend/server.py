@@ -117,6 +117,7 @@ class RazorpayOrderResponse(BaseModel):
     amount: int
     currency: str
     key_id: str
+    internal_order_id: str
 
 
 class VerifyPaymentRequest(BaseModel):
