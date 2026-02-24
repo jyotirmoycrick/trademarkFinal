@@ -144,7 +144,7 @@ const Checkout = () => {
         currency: 'INR',
         name: 'WebDesert Legal Services',
         description: 'Legal Service Payment',
-        order_id: internal_order_id,
+        order_id: razorpay_order_id,
         handler: async (response) => {
           try {
             await axios.post(
