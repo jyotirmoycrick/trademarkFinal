@@ -227,7 +227,8 @@ SERVICES_DATA = [
         "id": "trademark-registration",
         "name": "Trademark Registration",
         "description": "Protect your brand identity with official trademark registration",
-        "price": 1,
+        "price": 1299,
+        "govt_fee": 4500,
         "features": [
             "Comprehensive trademark search",
             "Application preparation & filing",
@@ -242,6 +243,7 @@ SERVICES_DATA = [
         "name": "GST Registration",
         "description": "Get your business GST compliant with hassle-free registration",
         "price": 1599,
+        "govt_fee": 0,
         "features": [
             "Complete documentation support",
             "Application filing",
@@ -254,20 +256,21 @@ SERVICES_DATA = [
     {
         "id": "company-registration",
         "name": "Company Registration",
-        "description": "Register your Private Limited Company with complete legal compliance",
+        "description": "Register your Private Limited Company (Assumed 2 Directors)",
         "price": 1999,
+        "govt_fee": 6500,
         "features": [
             "Name approval & reservation",
             "MOA & AOA preparation",
-            "DIN & DSC for directors",
+            "DIN & DSC for 2 directors",
             "Complete MCA filing",
             "Incorporation certificate",
-            "PAN & TAN registration"
+            "PAN & TAN registration",
+            "Basic post-incorporation compliance"
         ],
         "category": "business-formation"
     }
 ]
-
 
 
 # ── LEAD / ABANDONED CHECKOUT TRACKING ──────────────────────────────────────
