@@ -472,12 +472,13 @@ async def create_order(order_data: CreateOrderRequest, current_user: User = Depe
     
     await db.orders.insert_one(order_doc)
     
-    return RazorpayOrderResponse(
-        razorpay_order_id=razorpay_order['id'],
-        amount=final_amount,
-        currency="INR",
-        key_id=RAZORPAY_KEY_ID
-    )
+    return {
+        "razorpay_order_id": razorpay_order['id'],
+        "amount": final_amount,
+        "currency": "INR",
+        "key_id": RAZORPAY_KEY_ID,
+        "internal_order_id": order.id  # ADD THIS
+    }
 
 
 @api_router.post("/orders/verify-payment")
