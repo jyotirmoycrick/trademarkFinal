@@ -117,6 +117,7 @@ class RazorpayOrderResponse(BaseModel):
     amount: int
     currency: str
     key_id: str
+    internal_order_id: str
 
 
 class VerifyPaymentRequest(BaseModel):
@@ -476,7 +477,8 @@ async def create_order(order_data: CreateOrderRequest, current_user: User = Depe
         razorpay_order_id=razorpay_order['id'],
         amount=final_amount,
         currency="INR",
-        key_id=RAZORPAY_KEY_ID
+        key_id=RAZORPAY_KEY_ID,
+        internal_order_id=order.id
     )
 
 
